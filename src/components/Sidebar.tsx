@@ -24,7 +24,7 @@ export default function Sidebar() {
       {/* Logo at top */}
       <Link href="/" className="mb-8">
         <Image
-          src="/assets/dd-logo.png"
+          src="/assets/logos/dnd-logo.png" // corrected filename
           alt="DDD Logo"
           width={40}
           height={40}
@@ -47,7 +47,10 @@ function CastPopout() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <button className="group flex flex-col items-center gap-1 relative focus:outline-none">
+        <button
+          className="group flex flex-col items-center gap-1 relative focus:outline-none"
+          aria-label="Show cast list"
+        >
           <span className="text-yellow-200 group-hover:text-yellow-400 transition-colors">
             <Users2 size={32} />
           </span>
@@ -59,6 +62,8 @@ function CastPopout() {
       </SheetTrigger>
       <SheetContent
         side="left"
+        titleText="Meet the Cast"
+        descriptionText="List of all cast members in the campaign."
         className="w-[340px] max-w-[90vw] bg-gradient-to-b from-yellow-100 via-yellow-50 to-yellow-200 border-l-4 border-yellow-700 flex flex-col gap-6 pt-8 rounded-r-3xl shadow-2xl"
       >
         <motion.div
@@ -68,6 +73,7 @@ function CastPopout() {
           transition={{ type: "spring", stiffness: 180, damping: 18 }}
           className="origin-left"
         >
+          {/* Visually hidden heading for a11y (handled by SheetContent's titleText) */}
           <SheetTitle asChild>
             <h2 className="text-2xl text-yellow-900 font-bold mb-4 flex items-center gap-2 drop-shadow">
               <Users2 /> Meet the Cast

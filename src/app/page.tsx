@@ -1,43 +1,18 @@
-import HeroSection from '../components/HeroSection';
+import { episodes } from '@/data/episodes';
 import LatestEpisodeSection from '../components/LatestEpisodeSection';
-import ArcaneCharacterCard from '../components/ArcaneCharacterCard';
-
-const cast = [
-  {
-    name: 'Divad Notaeb',
-    subtitle: 'Human Bard • Level 7',
-    characterImg: '/assets/characters/divad.png'
-  },
-  {
-    name: 'Darrinious Wortinius',
-    subtitle: 'Human Wizard • Level 7',
-    characterImg: '/assets/characters/darrinious.png'
-  },
-  // Add more characters as needed
-];
+import CastCarousel from '../components/CastCarousel'; // <-- new import!
 
 export default function Home() {
+  const latestEpisode = episodes[0];
+
   return (
     <main>
-    
-      <LatestEpisodeSection />
+      {/* Latest Episode Section */}
+      {latestEpisode && <LatestEpisodeSection episode={latestEpisode} />}
 
-      {/* --- New Ancient Character Cards Grid --- */}
-      <section className="flex flex-col items-center my-16">
-        <h2 className="text-3xl font-bold text-violet-100 mb-8 drop-shadow-lg tracking-widest font-serif">
-          Meet The Cast
-        </h2>
-        <div className="flex flex-wrap gap-10 justify-center">
-          {cast.map((member) => (
-            <ArcaneCharacterCard
-              key={member.name}
-              name={member.name}
-              subtitle={member.subtitle}
-              characterImg={member.characterImg}
-            />
-          ))}
-        </div>
-      </section>
+      {/* Carousel instead of card grid */}
+      <CastCarousel />
+
       {/* Add more sections below if you want */}
     </main>
   );

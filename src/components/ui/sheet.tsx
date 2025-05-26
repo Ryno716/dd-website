@@ -7,21 +7,37 @@ import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+// Sheet Root and basic exports
 const Sheet = SheetPrimitive.Root
-
 const SheetTrigger = SheetPrimitive.Trigger
-
 const SheetClose = SheetPrimitive.Close
-
 const SheetPortal = SheetPrimitive.Portal
 
+// Visually Hidden utility for a11y titles/descriptions
+const VisuallyHidden = ({ children, ...props }: React.HTMLAttributes<HTMLSpanElement>) => (
+  <span style={{
+    border: 0,
+    clip: "rect(0 0 0 0)",
+    height: "1px",
+    margin: "-1px",
+    overflow: "hidden",
+    padding: 0,
+    position: "absolute",
+    width: "1px",
+    whiteSpace: "nowrap"
+  }} {...props}>
+    {children}
+  </span>
+);
+
+// Overlay
 const SheetOverlay = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Overlay>,
   React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>
 >(({ className, ...props }, ref) => (
   <SheetPrimitive.Overlay
     className={cn(
-      "fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+      "fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -51,19 +67,42 @@ const sheetVariants = cva(
 
 interface SheetContentProps
   extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,
-    VariantProps<typeof sheetVariants> {}
+    VariantProps<typeof sheetVariants> {
+  titleId?: string; // Accessibility title id
+  descriptionId?: string; // Accessibility description id
+  titleText?: string; // Accessibility title text
+  descriptionText?: string; // Accessibility description text
+}
 
 const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   SheetContentProps
->(({ side = "right", className, children, ...props }, ref) => (
+>(({ 
+    side = "right", 
+    className, 
+    children, 
+    titleId = "sheet-title", 
+    descriptionId = "sheet-description", 
+    titleText = "Dialog window", 
+    descriptionText,
+    ...props 
+  }, ref) => (
   <SheetPortal>
     <SheetOverlay />
     <SheetPrimitive.Content
       ref={ref}
       className={cn(sheetVariants({ side }), className)}
+      aria-labelledby={titleId}
+      aria-describedby={descriptionText ? descriptionId : undefined}
       {...props}
     >
+      {/* Visually hidden title for screen readers */}
+      <VisuallyHidden id={titleId}>{titleText}</VisuallyHidden>
+      {/* Optional visually hidden description for screen readers */}
+      {descriptionText && (
+        <VisuallyHidden id={descriptionId}>{descriptionText}</VisuallyHidden>
+      )}
+
       <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
         <X className="h-4 w-4" />
         <span className="sr-only">Close</span>
