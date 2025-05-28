@@ -42,9 +42,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
 
         {/* Main Content: Add margin on desktop to avoid content under sidebar */}
-        <main className="relative pt-24 pb-10 px-2 md:px-0 max-w-6xl mx-auto md:ml-24">
-          {children}
-        </main>
+        <main className="relative pt-24 pb-10 px-2 md:px-0" 
+      style={{ marginLeft: '0', width: '100%' }}>
+       <div className="max-w-6xl mx-auto">
+       {children}
+         </div>
+      </main>
+
         {/* Footer to be added later */}
       </body>
     </html>

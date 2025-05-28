@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Users2, Swords, Globe, Info } from "lucide-react";
 
 export default function Header() {
@@ -43,26 +42,7 @@ export default function Header() {
           </li>
         </ul>
 
-        {/* Mobile Hamburger */}
-        <div className="md:hidden flex items-center">
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild>
-              <button
-                className="p-2 rounded hover:bg-white/20 focus:outline-none"
-                aria-label="Open menu"
-              >
-                {/* Hamburger Icon */}
-                <span className="block w-6 h-1 bg-white mb-1 rounded"></span>
-                <span className="block w-6 h-1 bg-white mb-1 rounded"></span>
-                <span className="block w-6 h-1 bg-white rounded"></span>
-              </button>
-            </SheetTrigger>
-            <SheetContent
-              side="left"
-              titleText="Main navigation"
-              descriptionText="Site main menu, use the links below to navigate."
-              className="bg-black/95 w-[80vw] max-w-xs pt-10"
-            >
+       
               <nav
                 className="flex flex-col gap-6 text-yellow-200 font-bold text-lg"
                 aria-label="Main navigation"
@@ -96,9 +76,6 @@ export default function Header() {
                   <Info size={22} /> About
                 </Link>
               </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
       </nav>
     </header>
   );

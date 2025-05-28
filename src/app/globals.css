@@ -108,3 +108,7 @@ img, svg, video, canvas {
   0%, 100% { transform: rotate(-7deg);}
   50% { transform: rotate(7deg);}
 }
+@keyframes magic-glow {
+  0%, 100% { box-shadow: 0 0 36px 10px rgba(255,224,115,0.27),0 0px 32px 0px rgba(100,64,250,0.15);}
+  50% { box-shadow: 0 0 48px 20px rgba(255,224,115,0.37),0 0px 48px 0px rgba(160, 95, 255, 0.19);}
+}
