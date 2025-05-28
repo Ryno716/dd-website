@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { Swords, Shield, Users2, BookOpen, Globe, Info } from 'lucide-react';
+import { Swords, Users2, Globe, Info } from 'lucide-react';
 
 export default function Navbar() {
   return (

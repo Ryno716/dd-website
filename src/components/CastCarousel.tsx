@@ -6,10 +6,14 @@ import { characters } from '@/data/characters';
 import ArcaneCharacterCard from './ArcaneCharacterCard';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import CardModal from "./CardModal"; // <-- This is the new file you’ll add!
-import Image from "next/image";
 
-function AutoplayPlugin(slider: any, { delay = 2500 } = {}) {
-  let timeout: any;
+interface AutoplayPluginOptions {
+  delay?: number;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function AutoplayPlugin(slider: any, { delay = 2500 }: AutoplayPluginOptions = {}) {
+  let timeout: ReturnType<typeof setTimeout>;
   let mouseOver = false;
   function clearNextTimeout() { clearTimeout(timeout); }
   function nextTimeout() {
@@ -27,9 +31,11 @@ function AutoplayPlugin(slider: any, { delay = 2500 } = {}) {
   slider.on("updated", nextTimeout);
 }
 
+type Character = typeof characters[0];
+
 export default function CastCarousel() {
   const [current, setCurrent] = useState(0);
-  const [selectedCard, setSelectedCard] = useState(null);
+  const [selectedCard, setSelectedCard] = useState<Character | null>(null);
 
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
     {
@@ -98,10 +104,9 @@ export default function CastCarousel() {
         </button>
       </div>
       {/* Animated Card Modal */}
-      <CardModal
-        card={selectedCard}
-        onClose={() => setSelectedCard(null)}
-      />
+      {selectedCard && (
+        <CardModal card={selectedCard} onClose={() => setSelectedCard(null)} />
+      )}
     </section>
   );
 }

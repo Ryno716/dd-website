@@ -2,11 +2,9 @@
 "use client";
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
 import { Users2, Swords, Globe, Info } from "lucide-react";
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-white/10 shadow-lg border-b border-white/10">
@@ -50,28 +48,24 @@ export default function Header() {
                 <Link
                   href="/cast"
                   className="flex items-center gap-2 px-3 py-2 rounded hover:bg-yellow-400/10 transition"
-                  onClick={() => setOpen(false)}
                 >
                   <Users2 size={22} /> Cast
                 </Link>
                 <Link
                   href="/episodes"
                   className="flex items-center gap-2 px-3 py-2 rounded hover:bg-yellow-400/10 transition"
-                  onClick={() => setOpen(false)}
                 >
                   <Swords size={22} /> Episodes
                 </Link>
                 <Link
                   href="/world"
                   className="flex items-center gap-2 px-3 py-2 rounded hover:bg-yellow-400/10 transition"
-                  onClick={() => setOpen(false)}
                 >
                   <Globe size={22} /> World
                 </Link>
                 <Link
                   href="/about"
                   className="flex items-center gap-2 px-3 py-2 rounded hover:bg-yellow-400/10 transition"
-                  onClick={() => setOpen(false)}
                 >
                   <Info size={22} /> About
                 </Link>
